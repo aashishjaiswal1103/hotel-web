@@ -1,3 +1,108 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-charcoal-ink antialiased selection:bg-antique-gold/30 selection:text-royal-maroon;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Custom luxury scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F7F3E9; /* ivory-sand */
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #C9A45C; /* antique-gold */
+    border-radius: 4px;
+    border: 2px solid #F7F3E9;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7B2D26; /* royal-maroon */
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 164, 92, 0.15);
+  }
+  
+  .glass-panel-dark {
+    background: rgba(59, 59, 59, 0.88);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(201, 164, 92, 0.25);
+  }
+
+  .shadow-luxury-gold {
+    box-shadow: 0 10px 30px -15px rgba(201, 164, 92, 0.3),
+                0 0 0 1px rgba(201, 164, 92, 0.1);
+  }
+
+  .shadow-luxury-hover {
+    box-shadow: 0 20px 40px -20px rgba(123, 45, 38, 0.25),
+                0 0 0 1px rgba(201, 164, 92, 0.2),
+                inset 0 0 12px rgba(201, 164, 92, 0.05);
+  }
+
+  .text-shadow-gold {
+    text-shadow: 0 2px 4px rgba(201, 164, 92, 0.2);
+  }
+
+  .border-luxury-gold {
+    border-color: rgba(201, 164, 92, 0.35);
+  }
+
+  .jharokha-arch {
+    clip-path: url(#jharokha-clip);
+  }
+
+  .bg-terracotta {
+    background-color: #E07A5F;
+  }
+
+  .text-terracotta {
+    color: #E07A5F;
+  }
+
+  .border-terracotta {
+    border-color: #E07A5F;
+  }
+
+  .jaipur-motif {
+    background-image: radial-gradient(rgba(201, 164, 92, 0.12) 1px, transparent 0);
+    background-size: 24px 24px;
+    background-color: #F7F3E9;
+  }
+
+  .royal-shadow {
+    box-shadow: 0 15px 45px -12px rgba(123, 45, 38, 0.28);
+  }
+
+  .animate-gold-shimmer {
+    background: linear-gradient(
+      to right,
+      #C9A45C 20%,
+      #E6D7C3 40%,
+      #C9A45C 60%,
+      #E6D7C3 80%,
+      #C9A45C 100%
+    );
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: goldShimmer 4s linear infinite;
+  }
+}
+
+@keyframes goldShimmer {
+  to {
+    background-position: 200% center;
+  }
+}

@@ -1,8 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Gift, Clock, Users, Star, Calendar, MapPin, Phone, Mail } from 'lucide-react';
 
 const Offers = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const handleBookOffer = (offer: any) => {
+    let type: 'Room' | 'Package' | 'Dining' | 'Spa' | 'Activity' = 'Package';
+    if (offer.category === 'dining') type = 'Dining';
+    else if (offer.category === 'spa') type = 'Spa';
+    
+    const bookingItem = {
+      name: offer.title,
+      price: parseInt(offer.offerPrice.replace(/[^\d]/g, ''), 10),
+      description: offer.description,
+      capacity: offer.category === 'dining' ? 4 : 2,
+      image: offer.image
+    };
+
+    navigate('/book', { state: { bookingType: type, item: bookingItem } });
+  };
 
   const categories = [
     { id: 'all', name: 'All Offers', icon: Gift },
@@ -185,7 +203,10 @@ const Offers = () => {
 
                   <div className="border-t border-palace-beige pt-4">
                     <p className="text-xs text-charcoal-ink/60 mb-3">{offer.terms}</p>
-                    <button className="w-full bg-royal-maroon text-white py-3 rounded-lg hover:bg-royal-maroon/90 transition-colors duration-300 font-medium">
+                    <button 
+                      onClick={() => handleBookOffer(offer)}
+                      className="w-full bg-royal-maroon text-white py-3 rounded-lg hover:bg-royal-maroon/90 transition-all duration-300 font-medium cursor-pointer"
+                    >
                       Book This Offer
                     </button>
                   </div>

@@ -1,91 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, Clock, Heart, Utensils, Zap, Palette } from 'lucide-react';
+import { Star, Clock, Heart } from 'lucide-react';
 import ItineraryModal from '../components/ItineraryModal';
-import { Package } from '../types'; // Assuming Package type is correctly defined in types.ts
-
-// Expanded Package Data (as provided previously)
-const packagesData: Package[] = [
-    {
-      id: 1,
-      name: "Royal Heritage Immersion",
-      image: "https://images.pexels.com/photos/3613236/pexels-photo-3613236.jpeg",
-      duration: "3 Days, 2 Nights",
-      price: 85000,
-      originalPrice: 95000,
-      rating: 4.9,
-      reviews: 156,
-      description: "Step into the regal past. Explore Jaipur's majestic palaces, witness vibrant traditions, and live like royalty in our heritage haven.",
-      inclusions: ["Maharaja Suite", "Private Heritage Walk", "Royal Thali Dinner", "Vintage Car City Tour", "Exclusive Museum Access", "All Meals Included"],
-      benefits: ["Deep dive into history", "Experience authentic culture", "Unmatched luxury & service", "Perfect for history buffs"],
-      itinerary: [
-        { day: "Day 1", title: "Arrival & Royal Welcome", activities: ["Traditional welcome ceremony", "Check-in to Maharaja Suite", "Evening palace sound & light show", "Royal Thali dinner"] },
-        { day: "Day 2", title: "Jaipur Heritage Exploration", activities: ["Breakfast", "Vintage car tour of Pink City (Hawa Mahal, City Palace)", "Private historian-led walk", "Lunch at a traditional haveli", "Exclusive Amber Fort museum access", "Evening folk music and dance performance"] },
-        { day: "Day 3", title: "Artisan Crafts & Departure", activities: ["Breakfast", "Visit local artisan workshops (blue pottery, block printing)", "Check-out"] }
-      ],
-      icon: Palette
-    },
-    {
-      id: 2,
-      name: "Raj Romance & Elegance",
-      image: "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg",
-      duration: "4 Days, 3 Nights",
-      price: 125000,
-      originalPrice: 140000,
-      rating: 4.8,
-      reviews: 89,
-      description: "Rekindle romance amidst colonial charm and royal grandeur. Enjoy intimate dinners, spa indulgence, and timeless moments together.",
-      inclusions: ["Colonial Governor Suite", "Private Horse Riding", "Couples Ayurvedic Spa", "Starlit Dinner", "British High Tea", "Champagne Welcome"],
-      benefits: ["Unforgettable romantic escape", "Blend of luxury & heritage", "Personalized intimate experiences", "Ideal for couples, anniversaries"],
-      itinerary: [
-        { day: "Day 1", title: "Arrival & Intimate Evening", activities: ["Champagne welcome", "Check-in to decorated suite", "Private candlelit dinner in a palace alcove"] },
-        { day: "Day 2", title: "Colonial Charm", activities: ["Leisurely breakfast", "Private horse riding session", "Relaxing couples spa treatment", "Traditional British High Tea service"] },
-        { day: "Day 3", title: "Royal Moments", activities: ["Breakfast", "Explore palace gardens with a picnic basket", "Optional couples photoshoot", "Romantic dinner under the stars with live sitar music"] },
-        { day: "Day 4", title: "Farewell Embrace", activities: ["Final breakfast at leisure", "Check-out"] }
-      ],
-      icon: Heart
-    },
-    {
-      id: 3,
-      name: "Rajasthani Culinary Journey",
-      image: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
-      duration: "3 Days, 2 Nights",
-      price: 75000,
-      originalPrice: 85000,
-      rating: 4.7,
-      reviews: 65,
-      description: "Embark on a flavorful adventure through Rajasthan's royal kitchens. Learn traditional recipes, savor authentic dishes, and dine like Maharajas.",
-      inclusions: ["Heritage Palace Room", "Interactive Cooking Class", "Spice Market Tour", "Multiple Royal Feasts", "Local Food Walk", "All Meals Included"],
-      benefits: ["Master Rajasthani cooking secrets", "Taste authentic, rare dishes", "Explore local food culture", "Perfect for food lovers"],
-      itinerary: [
-        { day: "Day 1", title: "Arrival & Spice Trail", activities: ["Welcome drink", "Check-in", "Guided tour of a local spice market", "Welcome dinner featuring regional specialties"] },
-        { day: "Day 2", title: "Royal Kitchen Secrets", activities: ["Breakfast", "Hands-on cooking class with palace chefs (Laal Maas, Dal Baati Churma)", "Lunch (dishes prepared)", "Jaipur street food walk", "Elaborate Maharaja Thali dinner"] },
-        { day: "Day 3", title: "Sweet Endings & Departure", activities: ["Breakfast featuring Rajasthani sweets", "Visit a traditional sweet shop", "Check-out"] }
-      ],
-      icon: Utensils
-    },
-    {
-      id: 4,
-      name: "Wellness & Ayurvedic Retreat",
-      image: "https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg",
-      duration: "5 Days, 4 Nights",
-      price: 110000,
-      originalPrice: 125000,
-      rating: 4.9,
-      reviews: 112,
-      description: "Harmonize your body and soul with ancient Ayurvedic wisdom. Experience personalized treatments, yoga, and meditation in serene palace surroundings.",
-      inclusions: ["Heritage Deluxe Room", "Ayurvedic Consultation", "Daily Spa Treatments (Abhyanga, Shirodhara)", "Private Yoga & Meditation", "Wellness Cuisine", "All Meals Included"],
-      benefits: ["Complete mind-body rejuvenation", "Personalized wellness plan", "Learn ancient relaxation techniques", "Ideal for stress relief & detox"],
-      itinerary: [
-        { day: "Day 1", title: "Arrival & Consultation", activities: ["Wellness welcome drink", "Check-in", "Consultation with Ayurvedic doctor", "Relaxing evening massage"] },
-        { day: "Day 2", title: "Detox & Balance", activities: ["Morning Yoga", "Ayurvedic breakfast", "Prescribed spa treatment (e.g., Abhyanga)", "Wellness lunch", "Meditation session", "Light dinner"] },
-        { day: "Day 3", title: "Rejuvenation", activities: ["Sunrise Meditation", "Yoga session", "Ayurvedic breakfast", "Prescribed spa treatment (e.g., Shirodhara)", "Wellness lunch", "Leisure time/Palace exploration", "Light dinner"] },
-        { day: "Day 4", title: "Inner Harmony", activities: ["Morning Yoga", "Ayurvedic breakfast", "Final spa treatment", "Wellness lunch", "Guided relaxation session", "Farewell wellness dinner"] },
-        { day: "Day 5", title: "Mindful Departure", activities: ["Final Yoga & Meditation", "Ayurvedic breakfast", "Check-out"] }
-      ],
-      icon: Zap
-    }
-];
+import { Package } from '../types';
+import { packages as packagesData } from '../data';
 
 const Packages = () => {
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);

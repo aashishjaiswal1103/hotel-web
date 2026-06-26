@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, List, Star, Users, Wifi, Car, Coffee, Bath, Eye } from 'lucide-react';
+import { Grid, List, Star, Users, Eye } from 'lucide-react';
 
 const Rooms = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [filter, setFilter] = useState('all');
-  const [priceRange, setPriceRange] = useState([10000, 100000]);
+  const [priceRange] = useState([10000, 100000]);
 
   const rooms = [
     {
@@ -118,13 +118,7 @@ const Rooms = () => {
     return true;
   });
 
-  const amenityIcons = {
-    "Wi-Fi": Wifi,
-    "Air Conditioning": Coffee, // You might want to import a better icon like Wind or AirVent
-    "Marble Bathroom": Bath,
-    "Mini Bar": Coffee, // You might want a different icon
-    "Parking": Car
-  };
+
 
   return (
     <div className="min-h-screen pt-20 bg-ivory-sand">
@@ -192,12 +186,12 @@ const Rooms = () => {
         {/* Rooms Grid/List */}
         <div className={`${viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'space-y-6'}`}>
           {filteredRooms.map((room) => (
-            <div key={room.id} className={`bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 ${viewMode === 'list' ? 'flex flex-col md:flex-row' : ''}`}>
-              <div className={`relative overflow-hidden ${viewMode === 'list' ? 'md:w-1/3' : ''}`}>
+            <div key={room.id} className={`bg-white rounded-3xl overflow-hidden shadow-luxury-gold hover:shadow-luxury-hover transition-all duration-500 transform hover:-translate-y-1 border border-palace-beige/40 ${viewMode === 'list' ? 'flex flex-col md:flex-row' : ''}`}>
+              <div className={`relative overflow-hidden ${viewMode === 'list' ? 'md:w-1/3' : 'jharokha-arch m-4 mb-0 h-64'}`}>
                 <img
                   src={room.image}
                   alt={room.name}
-                  className={`object-cover transition-transform duration-700 hover:scale-110 ${viewMode === 'list' ? 'w-full h-64 md:h-full' : 'w-full h-64'}`}
+                  className={`object-cover transition-transform duration-700 hover:scale-110 w-full h-full`}
                 />
                 <div className="absolute top-4 left-4">
                   <span className="bg-antique-gold text-white px-3 py-1 rounded-full text-sm font-medium capitalize">

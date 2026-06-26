@@ -1,39 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { DiningVenue } from '../types';
 import MenuModal from '../components/MenuModal';
-import { Utensils, Coffee, Martini } from 'lucide-react'; // Import icons
-
-const venuesData: DiningVenue[] = [
-    {
-        id: 1,
-        name: "Maharaja's Table",
-        image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg",
-        description: "Experience the grandeur of royal Rajasthani dining. Authentic thalis and curated regional specialties.",
-        icon: Utensils // Add icon
-    },
-    {
-        id: 2,
-        name: "Colonial Club",
-        image: "https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg",
-        description: "Classic British fare and continental cuisine in an elegant, colonial-era setting. Perfect for high tea.",
-        icon: Martini // Add icon
-    },
-    {
-        id: 3,
-        name: "The Courtyard Cafe",
-        image: "https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg", // Example cafe image
-        description: "Relaxed all-day dining by the serene palace courtyard. Offers light meals, snacks, and beverages.",
-        icon: Coffee // Add icon
-    },
-    {
-        id: 4,
-        name: "Polo Bar",
-        image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg", // Example bar image
-        description: "Sophisticated bar adorned with polo memorabilia. Serving classic cocktails, fine spirits, and light bites.",
-        icon: Martini // Add icon
-    },
-];
+import { Utensils } from 'lucide-react';
+import { diningVenues as venuesData } from '../data';
 
 const Dining = () => {
   const [selectedVenue, setSelectedVenue] = useState<DiningVenue | null>(null);
@@ -72,7 +42,22 @@ const Dining = () => {
                        {IconComponent && <IconComponent className="h-6 w-6 text-antique-gold" />}
                        <h3 className="font-serif text-2xl font-bold text-royal-maroon">{venue.name}</h3>
                     </div>
-                    <p className="text-charcoal-ink/75 text-base mb-5 flex-grow">{venue.description}</p> {/* Slightly adjusted text color/size */}
+                    <p className="text-charcoal-ink/75 text-base mb-3">{venue.description}</p> {/* Slightly adjusted text color/size */}
+                    
+                    {/* Cross-Linkage to Packages */}
+                    {venue.id === 1 && (
+                      <p className="text-xs text-antique-gold font-semibold tracking-wide uppercase mb-4 flex items-center space-x-1">
+                        <span>👑 Featured in:</span>
+                        <Link to="/packages" className="underline hover:text-royal-maroon transition-colors">Rajasthani Culinary Journey</Link>
+                      </p>
+                    )}
+                    {venue.id === 2 && (
+                      <p className="text-xs text-antique-gold font-semibold tracking-wide uppercase mb-4 flex items-center space-x-1">
+                        <span>👑 Featured in:</span>
+                        <Link to="/packages" className="underline hover:text-royal-maroon transition-colors">Raj Romance & Elegance</Link>
+                      </p>
+                    )}
+
                     <div className="flex flex-col sm:flex-row gap-3 mt-auto"> {/* Use mt-auto to push buttons down */}
                       <button
                          onClick={() => handleReserve(venue)}
